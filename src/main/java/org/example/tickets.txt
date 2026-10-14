@@ -1,0 +1,13 @@
+Database timeout | Production DB unresponsive for 5 mins | Alice | CRITICAL
+UI Glitch | Login button is blue instead of red | Bob | LOW
+New User Setup | Needs access to staging environment | Charlie | MEDIUM
+Missing Delimiter Ticket Description Helen HIGH
+API Rate Limit | Partners are getting 429 errors | Dave | HIGH
+Cache invalidation | Redis cluster sync issues | Eve | CRITICAL
+Update docs | Fix typo in the installation guide | Frank | LOW
+Memory Leak |   App crashes after 4 hours of uptime   | Grace | CRITICAL
+Forgot Password | User cannot log in | Jack | SUPER_CRITICAL
+Firewall Rules | Open port 8080 for the new microservice | Heidi | MEDIUM
+Database timeout | Production DB unresponsive | Alice | CRITICAL
+UI Glitch | Login button is blue instead of red | Bob | LOW
+Deprecation Warning | Update legacy dependencies before Q3 | Ivan | LOW
