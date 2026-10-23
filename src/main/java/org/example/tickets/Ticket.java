@@ -1,7 +1,10 @@
 package org.example.tickets;
+import org.example.utility.Enums;
+
 import java.time.LocalDateTime;
 import java.time.Duration;
 import java.util.*;
+
 
 public abstract class Ticket implements Comparable<Ticket>{
     private int id;
@@ -11,17 +14,12 @@ public abstract class Ticket implements Comparable<Ticket>{
     private String assignee=null;
     private Set<String>tags;
 
-    public enum Priority{
-        LOW,MEDIUM,HIGH,CRITICAL;
-    }
 
-    private Priority priority;
+    private Enums.Priority priority;
 
 
-    public enum Status{
-        OPEN,IN_PROGRESS,RESOLVED,CLOSED;
-    }
-    private Status status;
+
+    private Enums.Status status;
     private final LocalDateTime createdAt;
 
     private static int nextId=1;
@@ -29,18 +27,18 @@ public abstract class Ticket implements Comparable<Ticket>{
     //short constructor
 
     public Ticket(String title,String requester){
-        this(title,"no description",requester,Priority.LOW);
+        this(title,"no description",requester, Enums.Priority.LOW);
     }
 
     //long constructor
 
-    public Ticket(String title, String description, String requester, Priority priority) {
+    public Ticket(String title, String description, String requester, Enums.Priority priority) {
         this.title = title;
         this.description = description;
         this.requester = requester;
         this.priority = priority;
         id=nextId++;
-        status=Status.OPEN;
+        status= Enums.Status.OPEN;
         this.createdAt = LocalDateTime.now();
 
         tags=new HashSet<>();
@@ -60,13 +58,13 @@ public abstract class Ticket implements Comparable<Ticket>{
     public String getRequester() {
         return requester;
     }
-    public Priority getPriority() {
+    public Enums.Priority getPriority() {
         return priority;
     }
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public Status getStatus() {
+    public Enums.Status getStatus() {
         return status;
     }
 
@@ -86,10 +84,10 @@ public abstract class Ticket implements Comparable<Ticket>{
             this.description+="..";
         }
     }
-    public void setPriority(Priority priority) {
+    public void setPriority(Enums.Priority priority) {
         this.priority = priority;
     }
-    public void setStatus(Status status) {
+    public void setStatus(Enums.Status status) {
         this.status = status;
     }
 

@@ -1,0 +1,8 @@
+*** END OF DAY TRIAGE REPORT ***
+*OVERDUE CRITICAL TICKETS*
+
+ METRICS:
+Total Open Tickets: 11
+Total Critical Tickets: 4
+
+Oldest Open Ticket: #3 - Database timeout

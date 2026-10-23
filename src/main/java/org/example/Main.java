@@ -6,6 +6,9 @@ import java.util.PriorityQueue;
 import java.nio.file.Path;
 import org.example.exceptions.*;
 import org.example.utility.*;
+import org.example.utility.Enums;
+
+
 
 
 
@@ -48,8 +51,8 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-
+//        Scanner sc=new Scanner(System.in);
+//
 //         int ticketNumber=sc.nextInt();
 //         int customerCount=sc.nextInt();
 //
@@ -90,11 +93,11 @@ public class Main {
 
         // llm genertaed tickets
         BugTicket bug1 = new BugTicket("Server crash", "App won't start", "Alice",
-                Ticket.Priority.CRITICAL, BugTicket.Severity.CRITICAL, "Restart app");
+                Enums.Priority.CRITICAL, Enums.Severity.CRITICAL, "Restart app");
         bug1.setAssignee("Zack");
 
         AccessRequestTicket access1 = new AccessRequestTicket("Need DB access", "Read only", "Bob",
-                Ticket.Priority.LOW, "Postgres", AccessRequestTicket.Access.USER);
+                Enums.Priority.LOW, "Postgres", Enums.Access.USER);
         access1.setAssignee("Alice");
 
 
@@ -106,12 +109,12 @@ public class Main {
 
 
 
-        System.out.println("Serving from Natural Order Queue---");
+        System.out.println("Serving from Natural Order Queue-");
 
         Ticket nextNatural = triageQueue.poll();
         System.out.println("Next up:" + nextNatural.getTitle());
 
-        System.out.println("\nServing from Assignee Queue---");
+        System.out.println("\nServing from Assignee Queue-");
 
         Ticket nextAssigned = assigneeQueue.poll();
         System.out.println("Next up:" + nextAssigned.getTitle());

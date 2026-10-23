@@ -19,7 +19,6 @@ public class Repository<T extends Ticket> {
 
 
     public List<T> all() {
-
         return Collections.unmodifiableList(items);
     }
 
@@ -45,7 +44,7 @@ public class Repository<T extends Ticket> {
                 grouped.put(assignee,new ArrayList<>());
             }
 
-            // Add the ticket to that assignee's list
+
             grouped.get(assignee).add(item);
         }
 

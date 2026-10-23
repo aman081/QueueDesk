@@ -1,20 +1,20 @@
 package org.example.tickets;
 
+import org.example.utility.Enums;
+
 public class BugTicket extends Ticket implements Escalatable {
 
-    public BugTicket(String title, String description, String requester, Priority priority,
-                     Severity severity, String stepsToReproduce) {
+    public BugTicket(String title, String description, String requester, Enums.Priority priority,
+                     Enums.Severity severity, String stepsToReproduce) {
         super(title,description,requester,priority);
         this.severity = severity;
         this.stepsToReproduce = stepsToReproduce;
     }
 
     private String stepsToReproduce;
-    public enum Severity{
-        LOW,MEDIUM,HIGH,CRITICAL;
-    }
 
-    public Severity severity;
+
+    public Enums.Severity severity;
 
     @Override
     public double estimateEffortHours() {

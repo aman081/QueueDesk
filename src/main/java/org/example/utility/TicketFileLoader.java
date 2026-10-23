@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import org.example.tickets.*;
 import org.example.exceptions.*;
 import java.io.BufferedReader;
+import org.example.utility.Enums;
 
 
 
@@ -37,11 +38,11 @@ public class TicketFileLoader {
                     String requester = fields[2].trim();
 
                     // we are actually using try catch for this... (eg- wromg spelling of priority or illegal priority)
-                    Ticket.Priority priority = Ticket.Priority.valueOf(fields[3].trim().toUpperCase());
+                    Enums.Priority priority = Enums.Priority.valueOf(fields[3].trim().toUpperCase());
 
                     //new ticket initialize
                     BugTicket parsedTicket = new BugTicket(title, desc, requester, priority,
-                            BugTicket.Severity.LOW, "N/A");
+                            Enums.Severity.LOW, "N/A");
                     loadedTickets.add(parsedTicket);
 
                 } catch (IllegalArgumentException e) {

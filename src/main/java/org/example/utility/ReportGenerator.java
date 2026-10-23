@@ -8,6 +8,8 @@ import java.util.List;
 import org.example.tickets.*;
 import org.example.exceptions.*;
 
+import org.example.utility.Enums;
+
 
 
 
@@ -24,11 +26,11 @@ public class ReportGenerator {
         int criticalCount = 0;
         Ticket oldestOpen = null;
 
-        report.append("--- OVERDUE CRITICAL TICKETS ---\n");
+        report.append("*OVERDUE CRITICAL TICKETS*\n");
 
         for (Ticket t : tickets) {
             // Count statuses
-            if (t.getStatus() == Ticket.Status.OPEN) {
+            if (t.getStatus() == Enums.Status.OPEN) {
                 openCount++;
 
                 // Find oldest open ticket
@@ -38,9 +40,9 @@ public class ReportGenerator {
             }
 
 
-            if (t.getPriority() == Ticket.Priority.CRITICAL) {
+            if (t.getPriority() == Enums.Priority.CRITICAL) {
                 criticalCount++;
-                if (t.getStatus() != Ticket.Status.CLOSED && t.ageInHours() >= 24) {
+                if (t.getStatus() != Enums.Status.CLOSED && t.ageInHours() >= 24) {
                     report.append("[ALERT] Ticket #").append(t.getId())
                             .append(" is overdue! (").append(t.ageInHours()).append(" hrs)\n");
                 }

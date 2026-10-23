@@ -1,11 +1,12 @@
 package org.example.tickets;
+import org.example.utility.Enums;
 
 public class FeatureRequestTicket extends Ticket {
 
     private int votes;
     private String businessJustification;
 
-    public FeatureRequestTicket(String title, String description, String requester, Priority priority,
+    public FeatureRequestTicket(String title, String description, String requester, Enums.Priority priority,
                                 int votes,String businessJustification){
         super(title,description,requester,priority);
         this.votes = votes;
