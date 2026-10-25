@@ -31,6 +31,15 @@ public class Repository<T extends Ticket> {
         }
         throw new TicketNotFoundException(id);
     }
+    //month-2
+    //finding by id that returns an Optional ticket
+
+    public Optional<T> findByIdSafe(int id){
+        return this.items
+                .stream()
+                .filter(t -> t.getId()==id)
+                .findFirst();
+    }
 
 
     public Map<String,List<T>> groupByAssignee() {
