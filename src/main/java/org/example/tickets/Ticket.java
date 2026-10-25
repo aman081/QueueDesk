@@ -67,6 +67,7 @@ public abstract class Ticket implements Comparable<Ticket>{
     public Enums.Status getStatus() {
         return status;
     }
+    public Set<String> getTags() {return tags;}
 
     public String getAssignee() {
         return assignee;
