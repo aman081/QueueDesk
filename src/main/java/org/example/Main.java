@@ -1,15 +1,13 @@
 package org.example;
 import org.example.tickets.*;
 import java.util.List;
-import java.util.Scanner;
 import java.util.PriorityQueue;
 import java.nio.file.Path;
 import org.example.exceptions.*;
 import org.example.utility.*;
-import org.example.utility.Enums;
-
-
-
+import org.example.utility.Enums.Access;
+import org.example.utility.Enums.Priority;
+import org.example.utility.Enums.Severity;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -46,6 +44,30 @@ public class Main {
         }
 
 
+    }
+
+    static void migrate(){
+        Path pipedFile = Path.of("src/main/java/org/example/tickets.txt");
+        Path jsonFile = Path.of("src/main/java/org/example/tickets.json");
+        TicketJsonStore jsonStore = new TicketJsonStore();
+
+        try {
+
+            List<Ticket> existingTickets = TicketFileLoader.load(pipedFile);
+            System.out.println("Loaded " + existingTickets.size() + " tickets from tickets.txt.");
+
+
+            jsonStore.save(existingTickets, jsonFile);
+            System.out.println("Migration to tickets.json successful.");
+
+
+            List<Ticket> jsonTickets = jsonStore.load(jsonFile);
+            System.out.println("Successfully read " + jsonTickets.size() + " tickets via Jackson.");
+
+        } catch (Exception e) {
+            System.err.println("Migration failed: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 
@@ -93,11 +115,11 @@ public class Main {
 
         // llm genertaed tickets
         BugTicket bug1 = new BugTicket("Server crash", "App won't start", "Alice",
-                Enums.Priority.CRITICAL, Enums.Severity.CRITICAL, "Restart app");
+                Priority.CRITICAL, Severity.CRITICAL, "Restart app");
         bug1.setAssignee("Zack");
 
         AccessRequestTicket access1 = new AccessRequestTicket("Need DB access", "Read only", "Bob",
-                Enums.Priority.LOW, "Postgres", Enums.Access.USER);
+                Priority.LOW, "Postgres", Access.USER);
         access1.setAssignee("Alice");
 
 
@@ -149,6 +171,27 @@ public class Main {
 
         Path outputPath = Path.of("src/main/java/org/example/summary.txt");
         ReportGenerator.generateEndOfDaySummary(repo.all(), outputPath);
+
+        //month-2 build
+        //testing the new findbyidsafe method in repository
+
+
+//        Ticket t1 = repo.findByIdSafe(1).orElseThrow(() -> new TicketNotFoundException(1));
+//        //if id exists
+//        System.out.println("Ticket found: " + t1.getTitle());
+//
+//
+//        repo.findByIdSafe(2).ifPresentOrElse(
+//                t -> System.out.println("Found ticket assigned to " + t.getAssignee()),
+//                () -> System.out.println(" Ticket does not exist.")
+//        );
+
+        String title = repo.findByIdSafe(3)
+                .map(Ticket::getTitle)
+                .orElse("Unknown Title");
+        System.out.println("Ticket Title: " + title);
+
+        migrate();
     }
 
     }

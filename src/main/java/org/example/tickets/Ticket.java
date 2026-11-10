@@ -1,9 +1,27 @@
 package org.example.tickets;
-import org.example.utility.Enums;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.example.utility.Enums.Priority;
+import org.example.utility.Enums.Status;
 
 import java.time.LocalDateTime;
 import java.time.Duration;
 import java.util.*;
+
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY, property = "type")
+
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = BugTicket.class, name = "bug"),
+        @JsonSubTypes.Type(value = AccessRequestTicket.class, name = "access"),
+        @JsonSubTypes.Type(value = FeatureRequestTicket.class, name = "feature")
+})
+
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 
 public abstract class Ticket implements Comparable<Ticket>{
@@ -15,30 +33,32 @@ public abstract class Ticket implements Comparable<Ticket>{
     private Set<String>tags;
 
 
-    private Enums.Priority priority;
+    private Priority priority;
 
 
 
-    private Enums.Status status;
-    private final LocalDateTime createdAt;
+    private Status status;
+    private  LocalDateTime createdAt;
 
     private static int nextId=1;
 
     //short constructor
 
     public Ticket(String title,String requester){
-        this(title,"no description",requester, Enums.Priority.LOW);
+        this(title,"no description",requester, Priority.LOW);
     }
 
     //long constructor
 
-    public Ticket(String title, String description, String requester, Enums.Priority priority) {
+    public Ticket(){};
+
+    public Ticket(String title, String description, String requester, Priority priority) {
         this.title = title;
         this.description = description;
         this.requester = requester;
         this.priority = priority;
         id=nextId++;
-        status= Enums.Status.OPEN;
+        status= Status.OPEN;
         this.createdAt = LocalDateTime.now();
 
         tags=new HashSet<>();
@@ -58,13 +78,13 @@ public abstract class Ticket implements Comparable<Ticket>{
     public String getRequester() {
         return requester;
     }
-    public Enums.Priority getPriority() {
+    public Priority getPriority() {
         return priority;
     }
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public Enums.Status getStatus() {
+    public Status getStatus() {
         return status;
     }
     public Set<String> getTags() {return tags;}
@@ -85,10 +105,10 @@ public abstract class Ticket implements Comparable<Ticket>{
             this.description+="..";
         }
     }
-    public void setPriority(Enums.Priority priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
-    public void setStatus(Enums.Status status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

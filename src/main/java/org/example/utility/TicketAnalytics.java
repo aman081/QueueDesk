@@ -1,13 +1,16 @@
 package org.example.utility;
 
 import org.example.tickets.Ticket;
+import org.example.utility.Enums.Priority;
+import org.example.utility.Enums.Status;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class TicketAnalytics {
 
-   public static Map<Enums.Priority, Long> countByPriority(List<Ticket> tickets){
+   public static Map<Priority, Long> countByPriority(List<Ticket> tickets){
         return tickets
                 .stream()
                 .collect(Collectors.groupingBy(Ticket::getPriority, Collectors.counting()));
@@ -37,7 +40,7 @@ public class TicketAnalytics {
     public static Optional<Ticket> oldestOpenTicket(List<Ticket> tickets){
        return tickets
                .stream()
-               .filter(t->t.getStatus()== Enums.Status.OPEN)
+               .filter(t->t.getStatus()== Status.OPEN)
                .min(Comparator.comparing(Ticket::getCreatedAt));
     }
 

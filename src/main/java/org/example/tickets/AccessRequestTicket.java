@@ -1,14 +1,17 @@
 package org.example.tickets;
 
-import org.example.utility.Enums;
+import org.example.utility.Enums.Access;
+import org.example.utility.Enums.Priority;
 
 public class AccessRequestTicket extends Ticket implements Escalatable {
     private String systemName;
 
-    private Enums.Access accessLevel;
+    private Access accessLevel;
 
-    public AccessRequestTicket(String title, String description, String requester, Enums.Priority priority,
-                               String systemName, Enums.Access accessLevel) {
+    public AccessRequestTicket() {};
+
+    public AccessRequestTicket(String title, String description, String requester, Priority priority,
+                               String systemName, Access accessLevel) {
         super(title,description,requester,priority);
         this.systemName = systemName;
         this.accessLevel = accessLevel;

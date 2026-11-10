@@ -6,11 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import org.example.tickets.*;
-import org.example.exceptions.*;
-
-import org.example.utility.Enums;
-
-
+import org.example.utility.Enums.Priority;
+import org.example.utility.Enums.Status;
 
 
 public class ReportGenerator {
@@ -30,7 +27,7 @@ public class ReportGenerator {
 
         for (Ticket t : tickets) {
             // Count statuses
-            if (t.getStatus() == Enums.Status.OPEN) {
+            if (t.getStatus() == Status.OPEN) {
                 openCount++;
 
                 // Find oldest open ticket
@@ -40,9 +37,9 @@ public class ReportGenerator {
             }
 
 
-            if (t.getPriority() == Enums.Priority.CRITICAL) {
+            if (t.getPriority() == Priority.CRITICAL) {
                 criticalCount++;
-                if (t.getStatus() != Enums.Status.CLOSED && t.ageInHours() >= 24) {
+                if (t.getStatus() != Status.CLOSED && t.ageInHours() >= 24) {
                     report.append("[ALERT] Ticket #").append(t.getId())
                             .append(" is overdue! (").append(t.ageInHours()).append(" hrs)\n");
                 }
